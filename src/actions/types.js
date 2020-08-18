@@ -1,0 +1,3 @@
+export const FETCH_SERVICES = "FETCH_SERVICES";
+export const FETCH_SCHEDULE = "FETCH_SCHEDULE";
+export const CHANGE_DATE = "CHANGE_DATE";
