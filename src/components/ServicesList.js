@@ -3,9 +3,48 @@ import { fetchServices } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 import Modali, { useModali } from "modali";
 import ReactPaginate from "react-paginate";
+import styled from "styled-components";
 
 import ModalBody from "./ModalBody";
 import Schedule from "./Schedule";
+
+const PaginationContainerStyles = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: ${(props) => props.theme.colors.white};
+  bottom: 0;
+  padding: 20px;
+  height: 50px;
+  position: fixed;
+  width: 100%;
+
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  li {
+    border: 1px solid ${(props) => props.theme.colors.black};
+    padding: 10px 20px;
+
+    a {
+      cursor: pointer;
+    }
+  }
+`;
+
+const ChannelContainer = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+`;
+
+const ImageContainer = styled.div`
+  flex: 0 0 100px;
+`;
 
 const ServicesList = () => {
   const perPage = 100;
@@ -42,29 +81,34 @@ const ServicesList = () => {
       <Modali.Modal {...eventModal}>
         <ModalBody event={selectedEvent} />
       </Modali.Modal>
-      <ReactPaginate
-        previousLabel={"previous"}
-        nextLabel={"next"}
-        breakLabel={"..."}
-        breakClassName={"break-me"}
-        pageCount={services.length / perPage}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={hanglePagintionChange}
-        containerClassName={"pagination"}
-        subContainerClassName={"pages pagination"}
-        activeClassName={"active"}
-      />
+
       {services.slice(paginationSlice.start, paginationSlice.end).map((service) => {
         const logoUrl = `https://cdn.skyq.sky.com/recruitment/tvguide/logos/${service.sid}/100x100.png`;
 
         return (
-          <div key={service.sid}>
-            <img src={logoUrl} alt={service.t} />
+          <ChannelContainer key={service.sid}>
+            <ImageContainer>
+              <img src={logoUrl} alt={service.t} />
+            </ImageContainer>
             <Schedule sid={service.sid} toggleModalOn={toggleModalOn}></Schedule>
-          </div>
+          </ChannelContainer>
         );
       })}
+      <PaginationContainerStyles>
+        <ReactPaginate
+          previousLabel={"previous"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={services.length / perPage}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={hanglePagintionChange}
+          containerClassName={"pagination"}
+          subContainerClassName={"pages pagination"}
+          activeClassName={"active"}
+        />
+      </PaginationContainerStyles>
     </div>
   );
 };

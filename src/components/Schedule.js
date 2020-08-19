@@ -1,8 +1,20 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSchedule } from "../actions";
+import styled from "styled-components";
 
-const Schedule = ({ sid,toggleModalOn }) => {
+const ScheduleContainerStyles = styled.div`
+  display: flex;
+  padding: 20px;
+`;
+
+const ScheduleItems = styled.div`
+  font-size: 12px;
+  cursor: pointer;
+  flex: 0 0 200px;
+`;
+
+const Schedule = ({ sid, toggleModalOn }) => {
   const selectedDate = useSelector((state) => state.calendar.selectedDate);
   const schedule = useSelector((state) => state.schedule.data[sid]);
   const dispatch = useDispatch();
@@ -17,13 +29,18 @@ const Schedule = ({ sid,toggleModalOn }) => {
 
   const { events } = schedule;
   return (
-    <div>
+    <ScheduleContainerStyles>
       {events.map((event) => (
-        <p key={event.eid} onClick={() => {
-          toggleModalOn(event)
-        }}>{event.t}</p>
+        <ScheduleItems
+          key={event.eid}
+          onClick={() => {
+            toggleModalOn(event);
+          }}
+        >
+          {event.t}
+        </ScheduleItems>
       ))}
-    </div>
+    </ScheduleContainerStyles>
   );
 };
 
