@@ -34,15 +34,19 @@ const PaginationContainerStyles = styled.div`
   }
 `;
 
+const ChannelWrapper = styled.div`
+  width: 100%;
+`;
+
 const ChannelContainer = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  overflow: hidden;
   padding: 20px;
 `;
 
 const ImageContainer = styled.div`
+  background-color: ${(props) => props.theme.colors.white};
   flex: 0 0 100px;
 `;
 
@@ -82,18 +86,20 @@ const ServicesList = () => {
         <ModalBody event={selectedEvent} />
       </Modali.Modal>
 
-      {services.slice(paginationSlice.start, paginationSlice.end).map((service) => {
-        const logoUrl = `https://cdn.skyq.sky.com/recruitment/tvguide/logos/${service.sid}/100x100.png`;
+      <ChannelWrapper>
+        {services.slice(paginationSlice.start, paginationSlice.end).map((service) => {
+          const logoUrl = `https://cdn.skyq.sky.com/recruitment/tvguide/logos/${service.sid}/100x100.png`;
 
-        return (
-          <ChannelContainer key={service.sid}>
-            <ImageContainer>
-              <img src={logoUrl} alt={service.t} />
-            </ImageContainer>
-            <Schedule sid={service.sid} toggleModalOn={toggleModalOn}></Schedule>
-          </ChannelContainer>
-        );
-      })}
+          return (
+            <ChannelContainer key={service.sid}>
+              <ImageContainer>
+                <img src={logoUrl} alt={service.t} />
+              </ImageContainer>
+              <Schedule sid={service.sid} toggleModalOn={toggleModalOn}></Schedule>
+            </ChannelContainer>
+          );
+        })}
+      </ChannelWrapper>
       <PaginationContainerStyles>
         <ReactPaginate
           previousLabel={"previous"}

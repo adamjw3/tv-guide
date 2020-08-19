@@ -4,9 +4,16 @@ import styled from "styled-components";
 import { changeDate } from "../actions";
 
 const DateContainerStyles = styled.div`
-  display: flex;
-  width: 100%;
   justify-content: space-between;
+  display: flex;
+  align-items: center;
+  background-color: ${(props) => props.theme.colors.white};
+  top: 0;
+  padding: 20px;
+  height: 50px;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
 `;
 
 const DateButtonStyles = styled.button`

@@ -21,7 +21,8 @@ const GlobalStyles = createGlobalStyle`
     font-family: Arial, Helvetica, sans-serif;
     font-size: 62.5%; //1rem = 10px
     background-color: ${(props) => props.theme.colors.white};
-    color: ${(props) => props.theme.colors.black}
+    color: ${(props) => props.theme.colors.black};
+    padding-top: 50px;
   }
 
   ${TypeStyles}
